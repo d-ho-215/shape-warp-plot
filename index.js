@@ -1,3 +1,4 @@
+/*
 let points_1 = [];
 let points_2 = [];
 let points_3 = [];
@@ -7,13 +8,18 @@ let y2d = 0;
 let x_d = 0;
 let colors;
 let c_i = 0;
+*/
 //let i = 0;
+
+let warpy;
 
 function setup() {
   createCanvas(900, 900, SVG);
   background(240);
   let n = 200;
   let r = 110;
+  
+  /*
   for (let i=0; i<n; i++) {
     let theta = i * (TWO_PI / n);
     let x_1 = cos(theta) * r + (2*width/10);
@@ -28,6 +34,7 @@ function setup() {
     let pt3 = new Pt(createVector(x_3,y))
     points_3.push(pt3)
   }
+  */
   
   
   /*colors = [
@@ -50,8 +57,26 @@ function setup() {
 }
 
 function draw() {
+    noFill();
   let noiseScale = 200;
   let factor = 0.5;
+  
+  let n = 200;
+  let r = 110;
+  
+  let points = [];
+  for (let i=0; i<n; i++) {
+      let theta = i * (TWO_PI / n);
+      let x = cos(theta) * r + (width/2);
+      let y = sin(theta) * r + (height/6);
+      let pt = new Pt(createVector(x,y));
+      points.push(pt);
+  }
+  
+  warpy = new ShapeWarp(noiseScale, factor, points, 90)
+  warpy.show()
+  
+  /*
   //let z = 0;
   //background(220, 5);
   noFill()
@@ -107,7 +132,7 @@ function draw() {
   z = 0;
   y_d = 0;
   y2d = 0;
-  c_i = 0
+  c_i = 0; // color
   
 
     for (let i=0; i<90; i++) {
@@ -135,7 +160,7 @@ function draw() {
   y_d = 0;
   y2d = 0;
   c_i = 0
-
+    */
   
   /*
   beginShape()
@@ -162,11 +187,14 @@ function draw() {
   }
   endShape(CLOSE)
   */
-  
+  /*
     noLoop()
   i++;
   if (i> 90) {
     noLoop();
   }
   //console.log(z);
+  */
+  noLoop();
+  
 }
