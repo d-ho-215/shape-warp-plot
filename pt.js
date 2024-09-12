@@ -9,14 +9,17 @@ class Pt {
 }
 
 class ShapeWarp {
-    constructor (noisescale, factor, points, iterations) {
+    constructor (noisescale, factor, points, iterations, x_d, y_d) {
         this.noisescale = noisescale;
         this.factor = factor;
         this.points = points;
         this.iterations = iterations;
         this.noise_z = 0;
+        this.x_d = x_d;
         this.x_delta = 0;
+        this.y_d = y_d;
         this.y_delta = 0;
+        
     }
     
     next() {
@@ -35,12 +38,12 @@ class ShapeWarp {
             let dx = cos(force_dir) * this.factor;
             let dy = sin(force_dir) * this.factor;
             let force = createVector(dx, dy);
-            console.log("noise_val:", noise_val, "force_dir: ", force_dir, "force: ",force)
+            //console.log("noise_val:", noise_val, "force_dir: ", force_dir, "force: ",force)
             pt.applyForce(force)
         }
-        this.noise_z += 0.01;
-        this.x_delta += 0;
-        this.y_delta += 7;
+        this.noise_z += 0.02;
+        this.x_delta += this.x_d;
+        this.y_delta += this.y_d;
     }
     
     show() {
@@ -54,5 +57,27 @@ class ShapeWarp {
             this.next();
         }
         
+    }
+}
+
+class CirclePoints {
+    constructor(center, radius, n_points) {
+        this.center = center;
+        this.radius = radius;
+        this.n_points = n_points;
+        
+        this.points = []
+        
+        this.build();
+    }
+    
+    build() {
+        for (let i=0; i<this.n_points; i++) {
+            let theta = i * (TWO_PI / this.n_points);
+            let x = cos(theta) * this.radius + this.center.x;
+            let y = sin(theta) * this.radius + this.center.y;
+            let pt = new Pt(createVector(x,y));
+            this.points.push(pt);
+        }
     }
 }

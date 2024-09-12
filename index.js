@@ -57,144 +57,28 @@ function setup() {
 }
 
 function draw() {
-    noFill();
+  noFill();
   let noiseScale = 200;
   let factor = 0.5;
   
   let n = 200;
   let r = 110;
   
-  let points = [];
-  for (let i=0; i<n; i++) {
-      let theta = i * (TWO_PI / n);
-      let x = cos(theta) * r + (width/2);
-      let y = sin(theta) * r + (height/6);
-      let pt = new Pt(createVector(x,y));
-      points.push(pt);
-  }
+  let center1 = createVector(2*width/10, height/6)
+  let center2 = createVector(5*width/10, height - height/6)
+  let center3 = createVector(8*width/10, height/6)
   
-  warpy = new ShapeWarp(noiseScale, factor, points, 90)
-  warpy.show()
+  let cp1 = new CirclePoints(center1, r, n);
+  let cp2 = new CirclePoints(center2, r, n);
+  let cp3 = new CirclePoints(center3, r, n);
   
-  /*
-  //let z = 0;
-  //background(220, 5);
-  noFill()
-  stroke(colors[c_i])
-  strokeWeight(1);
-  for (let i=0; i<90; i++) {
-      beginShape()
-      for (let pt of points_1) {
-        vertex(pt.position.x + x_d, pt.position.y + y_d);
-        //point(pt.position.x, pt.position.y + y_d)
-        let force_dir = map(noise(pt.position.x / noiseScale, pt.position.y / noiseScale, z), 0, 1, -TWO_PI *2, TWO_PI*2)
-        let dx = cos(force_dir) * factor;
-        let dy = sin(force_dir) * factor;
-        let force = createVector(dx, dy);
-        pt.applyForce(force)
-      }
-    endShape(CLOSE)
-      
-        z += 0.01;
-        y_d += 7;
-        y2d -= 7;
-        //x_d += 5;
-        c_i ++;
-        c_i = c_i % colors.length;
-  }
-  
-  z = 0;
-  y_d = 0;
-  y2d = 0;
-  c_i = 0;
-  
-    for (let i=0; i<90; i++) {
-      beginShape()
-      for (let pt of points_2) {
-        vertex(pt.position.x + x_d, pt.position.y + y2d);
-        //point(pt.position.x, pt.position.y + y_d)
-        let force_dir = map(noise(pt.position.x / noiseScale, pt.position.y / noiseScale, z), 0, 1, -TWO_PI *2, TWO_PI*2)
-        let dx = cos(force_dir) * factor;
-        let dy = sin(force_dir) * factor;
-        let force = createVector(dx, dy);
-        pt.applyForce(force)
-      }
-    endShape(CLOSE)
-      
-        z += 0.01;
-        y_d += 7;
-        y2d -= 7;
-        //x_d += 5;
-        c_i ++;
-        c_i = c_i % colors.length;
-  }
-  
-  z = 0;
-  y_d = 0;
-  y2d = 0;
-  c_i = 0; // color
-  
+  warpy1 = new ShapeWarp(noiseScale, factor, cp1.points, 90, 0, 7);
+  warpy2 = new ShapeWarp(noiseScale, factor, cp2.points, 90, 0, -7);
+  warpy3 = new ShapeWarp(noiseScale, factor, cp3.points, 90, 0, 7); 
+  warpy1.show()
+  warpy2.show()
+  warpy3.show()
 
-    for (let i=0; i<90; i++) {
-      beginShape()
-      for (let pt of points_3) {
-        vertex(pt.position.x + x_d, pt.position.y + y_d);
-        //point(pt.position.x, pt.position.y + y_d)
-        let force_dir = map(noise(pt.position.x / noiseScale, pt.position.y / noiseScale, z), 0, 1, -TWO_PI *2, TWO_PI*2)
-        let dx = cos(force_dir) * factor;
-        let dy = sin(force_dir) * factor;
-        let force = createVector(dx, dy);
-        pt.applyForce(force)
-      }
-    endShape(CLOSE)
-      
-        z += 0.01;
-        y_d += 7;
-        y2d -= 7;
-        //x_d += 5;
-        c_i ++;
-        c_i = c_i % colors.length;
-  }
-  
-  z = 0;
-  y_d = 0;
-  y2d = 0;
-  c_i = 0
-    */
-  
-  /*
-  beginShape()
-  for (let pt of points_2) {
-    vertex(pt.position.x + x_d, pt.position.y + y2d);
-    //point(pt.position.x, pt.position.y + y2d)
-    let force_dir = map(noise(pt.position.x / noiseScale, pt.position.y / noiseScale, z), 0, 1, -TWO_PI *2, TWO_PI*2)
-    let dx = cos(force_dir) * factor;
-    let dy = sin(force_dir) * factor;
-    let force = createVector(dx, dy);
-    pt.applyForce(force)
-  }
-  endShape(CLOSE)
-  
-  beginShape()
-  for (let pt of points_3) {
-    vertex(pt.position.x + x_d, pt.position.y + y_d);
-    //point(pt.position.x, pt.position.y + y_d)
-    let force_dir = map(noise(pt.position.x / noiseScale, pt.position.y / noiseScale, z), 0, 1, -TWO_PI *2, TWO_PI*2)
-    let dx = cos(force_dir) * factor;
-    let dy = sin(force_dir) * factor;
-    let force = createVector(dx, dy);
-    pt.applyForce(force)
-  }
-  endShape(CLOSE)
-  */
-  /*
-    noLoop()
-  i++;
-  if (i> 90) {
-    noLoop();
-  }
-  //console.log(z);
-  */
   noLoop();
   
 }
